@@ -6,19 +6,20 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
-	"strings"
 	"strconv"
+	"strings"
+
+	"aoc2024/utils"
 )
 
 func main() {
-	fileLines := ReadFile()
+	fileLines := utils.GetInputFile("day1/test.txt")
 
 	answer := One(fileLines)
 	fmt.Println(answer)
 }
 
 func One(fileLines []string) int {
-
 	var leftLocationIdList, rightLocationIdList []int
 	answer := 0
 
@@ -35,7 +36,7 @@ func One(fileLines []string) int {
 	sort.Ints(leftLocationIdList)
 	sort.Ints(rightLocationIdList)
 
-	for i, _ := range leftLocationIdList {
+	for i := range leftLocationIdList {
 		distance := Abs(leftLocationIdList[i] - rightLocationIdList[i])
 		answer += distance
 	}
@@ -43,7 +44,7 @@ func One(fileLines []string) int {
 	return answer
 }
 
-func Abs(num int) int{
+func Abs(num int) int {
 	if num < 0 {
 		return -num
 	}
@@ -52,7 +53,6 @@ func Abs(num int) int{
 
 func ReadFile() []string {
 	absPath, err := filepath.Abs("../../input/day1/test.txt")
-
 	if err != nil {
 		panic(err)
 	}
@@ -60,7 +60,6 @@ func ReadFile() []string {
 	var lines []string
 
 	file, err := os.Open(absPath)
-
 	if err != nil {
 		panic(err)
 	}
